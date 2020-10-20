@@ -1,1 +1,5 @@
-# gec-opennmt
+# data
+
+Catalan Oscar Corpus
+
+
