@@ -22,10 +22,10 @@
 def apply_rules(sentence):
 
     # Pronoms   
-    sentence = sentence.replace("-hi", "")
-    sentence = sentence.replace("-ne", "")
-    sentence = sentence.replace(" hi ", "")
-    sentence = sentence.replace(" ho ", "")
+    sentence = sentence.replace("-hi", " ")
+    sentence = sentence.replace("-ne", " ")
+    sentence = sentence.replace(" hi ", " ")
+    sentence = sentence.replace(" ho ", " ")
     sentence = sentence.replace(" ens la ", " ens ")
     sentence = sentence.replace(" t'ho ", " ens ")
 

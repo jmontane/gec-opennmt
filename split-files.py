@@ -39,7 +39,7 @@ def split_in_two_files(src_filename):
     print("Split src and tgt files in 6 files for training, text and validation")
 
     total_lines = file_len(src_filename)
-    total_lines = 335050 # Fix lines to 12 million
+    total_lines = 6000000 # Fix lines to 12 million
     changed = 0
 
     validation_each = round(total_lines / number_validation)
@@ -56,7 +56,6 @@ def split_in_two_files(src_filename):
         open("data/tgt-test.txt", "w") as target_test,\
         open("data/tgt-train.txt", "w") as target_train,\
         open(src_filename, "r") as read_source:
-
 
         print("total_lines {0}".format(total_lines))
         print("number_validation {0}".format(number_validation))
@@ -78,12 +77,13 @@ def split_in_two_files(src_filename):
             trg = src
             src = apply_rules(src)
 
-            pair = src
-            if pair in pairs:
-                duplicated = duplicated + 1
-                continue
-            else:
-                pairs.add(pair)
+# Assume no duplications since we use dedup Oscar corpus
+#            pair = src
+#            if pair in pairs:
+#                duplicated = duplicated + 1
+#                continue
+#            else:
+#                pairs.add(pair)
 
             if strings % validation_each == 0:
                 source = source_val
