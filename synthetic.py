@@ -18,26 +18,40 @@
 # Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 # Boston, MA 02111-1307, USA.
 
+def _replace(sentence, src, trg, changes):
 
-def apply_rules(sentence):
+    replaced = sentence.replace(src, trg)
+    if replaced != sentence:
+        key = f"{src}->{trg}"
+        if key not in changes: 
+            value = 0
+        else:
+            value = changes[key]
+
+        value = value + 1
+        changes[key] = value
+    
+    return replaced
+
+def apply_rules(sentence, changes):
 
     # Pronoms   
-    sentence = sentence.replace("-hi", " ")
-    sentence = sentence.replace("-ne", " ")
-    sentence = sentence.replace(" hi ", " ")
-    sentence = sentence.replace(" ho ", " ")
-    sentence = sentence.replace(" ens la ", " ens ")
-    sentence = sentence.replace(" t'ho ", " ens ")
+    sentence = _replace(sentence, "-hi", " ", changes)
+    sentence = _replace(sentence, "-ne", " ", changes)
+    sentence = _replace(sentence, " hi ", " ", changes)
+    sentence = _replace(sentence, " ho ", " ", changes)
+    sentence = _replace(sentence, " ens la ", " ens ", changes)
+    sentence = _replace(sentence, " t'ho ", " ens ", changes)
 
     # Dicritics
-    sentence = sentence.replace(" deu ", " déu ")
-    sentence = sentence.replace(" déu ", " deu ")
-    sentence = sentence.replace(" què ", " que ")
-    sentence = sentence.replace(" que ", " què ")
-    sentence = sentence.replace(" té ", " te ")
-    sentence = sentence.replace(" te ", " té ")
-    sentence = sentence.replace(" soc ", " sóc ")
-    sentence = sentence.replace(" sóc ", " soc ")
+    sentence = _replace(sentence, " deu ", " déu ", changes)
+    sentence = _replace(sentence, " déu ", " deu ", changes)
+    sentence = _replace(sentence, " què ", " que ", changes)
+    sentence = _replace(sentence, " que ", " què ", changes)
+    sentence = _replace(sentence, " té ", " te ", changes)
+    sentence = _replace(sentence, " te ", " té ", changes)
+    sentence = _replace(sentence, " soc ", " sóc ", changes)
+    sentence = _replace(sentence, " sóc ", " soc ", changes)
 
     return sentence
 

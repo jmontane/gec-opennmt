@@ -19,6 +19,7 @@
 # Boston, MA 02111-1307, USA.
 
 import os
+import operator
 from synthetic import apply_rules
 
 def file_len(fname):
@@ -39,7 +40,7 @@ def split_in_two_files(src_filename):
     print("Split src and tgt files in 6 files for training, text and validation")
 
     total_lines = file_len(src_filename)
-    total_lines = 6000000 # Fix lines to 12 million
+    total_lines = 3000000 # Fix lines to 12 million
     changed = 0
 
     validation_each = round(total_lines / number_validation)
@@ -66,6 +67,7 @@ def split_in_two_files(src_filename):
         clean = 0
         lines = 0
         added = 0
+        changes = {}
         while True:
 
             src = read_source.readline()
@@ -75,7 +77,7 @@ def split_in_two_files(src_filename):
                 break
 
             trg = src
-            src = apply_rules(src)
+            src = apply_rules(src, changes)
 
 # Assume no duplications since we use dedup Oscar corpus
 #            pair = src
@@ -113,6 +115,13 @@ def split_in_two_files(src_filename):
     total_strings = strings + added
     print(f"Strings: {strings}, total strings {total_strings}, duplicated {duplicated} ({pduplicated:.2f}%)")
     print(f"Changed {changed} ({pchanged:.2f}%), added {added} ({padded:.2f}%)")
+    print_changes(changes)
+
+def print_changes(changes):
+    sorted_dict = sorted(changes.items(), key=operator.itemgetter(1), reverse=True)
+    for change in sorted_dict:
+        key, value = change
+        print(f"{key}: {value}")
 
 
 def append_lines_from_file(src_filename, trg_file):
