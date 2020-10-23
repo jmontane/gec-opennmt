@@ -24,28 +24,39 @@ import os
 
 def split_in_two_files():
 
-    strings = 0
+    lines = 0
+    match = 0
+    equal = 0
+    changed = 0
+        
+    with open("data/src-test.500", "r") as source,\
+        open("data/tgt-test.500", "r") as reference,\
+        open("data/translated.txt", "r") as target:
 
-    with open("data/tgt-test.500", "r") as source,\
-        open("data/translated.500", "r") as target
-
-        lines = 0
-        match = 0
         while True:
 
             src = source.readline()
+            ref = reference.readline()
             trg = target.readline()
 
-            if not src or not trg:
+            if not src or not trg or not ref:
                 break
 
             lines = lines + 1
 
-            if src == trg:
+            if ref == trg:
                 match = match + 1
 
-    pmatch = match * 100 / strings
-    print(f"Total strings {lines}, matched {match} ({pmatch:.2f}%)")
+            elif src == target:
+                equal = equal + 1
+
+            else:
+                changed = changed + 1
+
+    pmatch = match * 100 / lines
+    pequal = equal * 100 / lines
+    pchanged = changed * 100 / lines
+    print(f"Total strings {lines}, matched {match} ({pmatch:.2f}%), equal {equal} ({pequal:.2f}%), changed {changed} ({pchanged:.2f}%)")
 
 def main():
 
