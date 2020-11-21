@@ -35,23 +35,8 @@ def _replace(sentence, src, trg, changes):
 
 def apply_rules(sentence, changes):
 
-    # Pronoms   
-    sentence = _replace(sentence, "-hi", " ", changes)
-    sentence = _replace(sentence, "-ne", " ", changes)
-    sentence = _replace(sentence, " hi ", " ", changes)
-    sentence = _replace(sentence, " ho ", " ", changes)
-    sentence = _replace(sentence, " ens la ", " ens ", changes)
-    sentence = _replace(sentence, " t'ho ", " ens ", changes)
-
-    # Dicritics
-    sentence = _replace(sentence, " deu ", " déu ", changes)
-    sentence = _replace(sentence, " déu ", " deu ", changes)
+    # Dicritic "què"
     sentence = _replace(sentence, " què ", " que ", changes)
-    sentence = _replace(sentence, " que ", " què ", changes)
-    sentence = _replace(sentence, " té ", " te ", changes)
-    sentence = _replace(sentence, " te ", " té ", changes)
-    sentence = _replace(sentence, " soc ", " sóc ", changes)
-    sentence = _replace(sentence, " sóc ", " soc ", changes)
 
     return sentence
 
